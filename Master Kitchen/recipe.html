@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ recipe.name }} - Master Kitchen</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">🍳 Master Kitchen</div>
+    <p>Discover delicious recipes</p>
+</header>
+
+<main class="detail-container">
+
+    <a href="{{ url_for('home') }}" class="back-btn">
+        ← Back to Recipes
+    </a>
+
+    <article class="recipe-detail">
+
+        <img
+            class="detail-image"
+            src="{{ recipe.image }}"
+            alt="{{ recipe.name }}"
+        >
+
+        <div class="detail-content">
+
+            <h1>{{ recipe.name }}</h1>
+
+            <p class="description">
+                {{ recipe.description }}
+            </p>
+
+            <div class="detail-info">
+                <div>
+                    <strong>⏱️ Preparation</strong>
+                    <span>{{ recipe.prep_time }}</span>
+                </div>
+
+                <div>
+                    <strong>🔥 Cooking</strong>
+                    <span>{{ recipe.cook_time }}</span>
+                </div>
+
+                <div>
+                    <strong>🍽️ Servings</strong>
+                    <span>{{ recipe.servings }}</span>
+                </div>
+            </div>
+
+            <section>
+                <h2>🥕 Ingredients</h2>
+
+                <ul class="ingredients">
+                    {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section>
+                <h2>👨‍🍳 Instructions</h2>
+
+                <ol class="instructions">
+                    {% for step in recipe.instructions %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </section>
+
+        </div>
+
+    </article>
+
+</main>
+
+<footer>
+    <p>© 2026 Master Kitchen | Delicious Recipes Made Simple 🍴</p>
+</footer>
+
+</body>
+</html>

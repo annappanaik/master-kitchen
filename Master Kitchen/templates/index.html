@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Kitchen - Recipe Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">🍳 Master Kitchen</div>
+    <p>Find delicious recipes with what you have!</p>
+</header>
+
+<main>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <h1>Find Your Perfect Recipe</h1>
+
+        <form action="/" method="GET" class="search-form">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search for a dish or ingredient..."
+                value="{{ query }}"
+                aria-label="Search recipes"
+            >
+            <button type="submit">🔍 Search</button>
+        </form>
+    </section>
+
+    <!-- Search Results -->
+    <section class="results-section">
+
+        {% if query %}
+            <h2>Search Results for "{{ query }}"</h2>
+        {% else %}
+            <h2>Popular Recipes</h2>
+        {% endif %}
+
+        {% if recipes %}
+
+        <div class="recipe-grid">
+
+            {% for recipe in recipes %}
+
+            <article class="recipe-card">
+
+                <img
+                    src="{{ recipe.image }}"
+                    alt="{{ recipe.name }}"
+                >
+
+                <div class="recipe-content">
+                    <h3>{{ recipe.name }}</h3>
+
+                    <div class="recipe-info">
+                        <span>⏱️ Prep: {{ recipe.prep_time }}</span>
+                        <span>🔥 Cook: {{ recipe.cook_time }}</span>
+                        <span>🍽️ Serves: {{ recipe.servings }}</span>
+                    </div>
+
+                    <p>{{ recipe.description }}</p>
+
+                    <a
+                        href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}"
+                        class="view-btn"
+                    >
+                        View Recipe →
+                    </a>
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="no-results">
+            <h3>😕 No recipes found</h3>
+            <p>Try searching for another dish or ingredient.</p>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Master Kitchen | Delicious Recipes Made Simple 🍴</p>
+</footer>
+
+</body>
+</html>
